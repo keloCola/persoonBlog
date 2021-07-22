@@ -57,7 +57,7 @@ module.exports = {
     // 博主信息，显示在首页侧边栏
     avatar: 'https://gitee.com/sheep101/typora-img-save/raw/master/img/20210715160658.jpeg',
     name: 'keloCola',
-    slogan: '前端小学生',
+    slogan: 'colacola',
   },
   social: {
     // 社交图标，显示于博主信息栏和页脚栏

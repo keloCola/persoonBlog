@@ -114,23 +114,23 @@ export default {
           KEY: 'green',
           color: '#3eaf7c'
         },
-        {
-          name: '收获黄',
-          KEY: 'yellow',
-          color: '#D59C12'
-        },
+        // {
+        //   name: '收获黄',
+        //   KEY: 'yellow',
+        //   color: '#D59C12'
+        // },
         {
           name: '天空蓝',
           KEY: 'blue',
           color: '#3498DB'
         },
         {
-          name: '激情红',
+          name: '合欢红',
           KEY: 'red',
-          color: '#E74C3C'
+          color: '#f0a1a8'
         },
         {
-          name: '高贵紫',
+          name: '基佬紫',
           KEY: 'purple',
           color: '#8e44ad'
         }
