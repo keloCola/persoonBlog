@@ -1,5 +1,6 @@
 <template>
   <nav
+    :key="key"
     class="nav-links"
     v-if="userLinks.length || repoLink"
   >
@@ -15,6 +16,7 @@
       />
       <NavLink
         v-else
+        :isfirsMenu=true
         :item="item"
       />
     </div>
@@ -40,6 +42,18 @@ import NavLink from '@theme/components/NavLink.vue'
 
 export default {
   components: { NavLink, DropdownLink },
+  data () {
+    return {
+      key: ''
+    }
+  },
+
+  watch: {
+    $route () {
+      console.log('触发了这个函数！')
+      this.key = new Date().getTime()
+    }
+  },
 
   computed: {
     userNav () {
@@ -124,7 +138,7 @@ export default {
     line-height 1.4rem
     color inherit
     &:hover, &.router-link-active
-      color $accentColor
+      color var(--accentColor)
   .nav-item
     position relative
     display inline-block
@@ -147,8 +161,34 @@ export default {
   .nav-links a
     &:hover, &.router-link-active
       color var(--textColor)
+  .nav-item
+    .firstMenu-link
+      &:after
+        content: "";
+        width: 0;
+        height: 2px;
+        background: var(--accent-color-l10);
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transition: all .4s;
+      &:hover:after{
+        left: 0%;
+        width: 100%;
+      }
+      &:active{
+        left: 0%;
+        width: 100%;
+      }
   .nav-item > a:not(.external)
-    &:hover, &.router-link-active
+    position: relative;
+    &:hover
       margin-bottom -2px
-      border-bottom 2px solid lighten($accentColor, 8%)
+      // border-bottom 2px solid lighten($accentColor, 8%)
+      //border-bottom 2px solid var(--accent-color-l10)
+    &.router-link-active
+      margin-bottom -2px
+      color var(--accentColor)
+      // border-bottom 2px solid lighten($accentColor, 8%)
+      border-bottom 2px solid var(--accent-color-l10)
 </style>

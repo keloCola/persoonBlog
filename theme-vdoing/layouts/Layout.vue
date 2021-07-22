@@ -75,11 +75,12 @@
       /> -->
     </Page>
 
-    <Footer />
+    <Footer v-if="showLicense" />
 
     <Buttons
       ref="buttons"
       @toggle-theme-mode="toggleThemeMode"
+      @toggle-theme-color="toggleThemeColor"
     />
 
     <BodyBgImg v-if="$themeConfig.bodyBgImg" />
@@ -128,11 +129,17 @@ export default {
       isSidebarOpen: true,
       showSidebar: false,
       themeMode: 'light',
+      themeColor: 'green',
       showWindowLB: true,
-      showWindowRB: true
+      showWindowRB: true,
+      // showLicense: false
     }
   },
   computed: {
+    showLicense() {
+      const { frontmatter } = this.$page
+      return !!frontmatter.home
+    },
     sidebarSlotTop() {
       return this.getHtmlStr('sidebarT')
     },
@@ -221,12 +228,19 @@ export default {
   beforeMount () {
     this.isSidebarOpenOfclientWidth()
     const mode = storage.get('mode') // 不放在created是因为vuepress不能在created访问浏览器api，如window
+    const themeColor = storage.get('themeColor')
+
+    // 切换主题
     if (!mode || mode === 'auto') { // 当未切换过模式，或模式处于'跟随系统'时
       this._autoMode()
     } else {
       this.themeMode = mode
     }
     this.setBodyClass()
+
+    // 切换主题色
+    this.themeColor = themeColor || 'green'
+    this.setAppClass()
 
     // 引入图标库
     const social = this.$themeConfig.social
@@ -276,6 +290,9 @@ export default {
     },
     themeMode () {
       this.setBodyClass()
+    },
+    themeColor () {
+      this.setAppClass()
     }
   },
   methods: {
@@ -284,7 +301,21 @@ export default {
       return htmlModules ? htmlModules[module] : ''
     },
     setBodyClass () {
-      document.body.className = 'theme-mode-' + this.themeMode
+      const mode = 'theme-mode-' + this.themeMode
+      if (document.body.classList[0].includes('theme-mode')) {
+        document.body.classList.replace(document.body.classList[0], mode)
+      }
+    },
+    setAppClass () {
+      const color = 'theme-color-' + this.themeColor
+      if (document.body.classList[1]?.includes('theme-color')) {
+        document.body.classList.replace(document.body.classList[1], color)
+      } else {
+        document.body.classList.add('theme-color-green')
+      }
+      // const appId = document.querySelector('#app')
+      // appId.className = 'theme-mode-' + this.themeColor
+      // document.body.classList.replace('theme-mode-' + this.themeColor)
     },
     getScrollTop () {
       return window.pageYOffset
@@ -314,6 +345,10 @@ export default {
         this.themeMode = key
       }
       storage.set('mode', key)
+    },
+    toggleThemeColor (key) {
+      this.themeColor = key
+      storage.set('themeColor', key)
     },
 
     // side swipe

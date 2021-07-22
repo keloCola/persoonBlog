@@ -36,21 +36,18 @@ a,input,button
     -webkit-border-radius:3px
   ::-webkit-scrollbar-thumb:vertical
     height:5px;
-    background-color:rgba(0,0,0,.28)
+    background-color:var(--accentColor)
     -webkit-border-radius:3px
   ::-webkit-scrollbar-thumb:horizontal
     width:5px;
-    background-color:rgba(0,0,0,.28)
+    background-color:var(--accentColor)
     -webkit-border-radius:3px
 
 
 .card-box // 卡片
   border-radius 5px
   background var(--mainBg)
-  box-shadow 0 1px 2px 0 rgba(0,0,0,.1)
-  transition box-shadow .5s
-  &:hover
-    box-shadow 0 1px 15px 0 rgba(0,0,0,.1)
+  box-shadow: 6px 6px 12px var(--theme-bg-shadow), -6px -6px 12px var(--theme-bg-high);
 
 .blur // 模糊滤镜
   backdrop-filter saturate(200%) blur(20px)
@@ -66,8 +63,14 @@ a,input,button
 body .search-box
   input
     background-color transparent
-    color var(--textColor)
+    color var(--accentColor)
     border 1px solid var(--borderColor, #ccc)
+    &:focus
+      border-color var(--accentColor)
+  .suggestion
+    &.focused
+      a
+        color var(--accentColor)
     @media (max-width: $MQNarrow)
        border-color transparent
 
@@ -142,12 +145,12 @@ body .search-box
 
 a
   font-weight 500
-  color $accentColor
+  color var(--accentColor)
   text-decoration none
 
 p a code
   font-weight 400
-  color $accentColor
+  color var(--accentColor)
 
 kbd
   background #eee

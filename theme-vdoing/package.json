@@ -1,17 +1,9 @@
 {
-  "name": "vuepress-theme-vdoing",
-  "version": "1.8.3",
-  "description": "Vdoing theme for VuePress. 一个基于VuePress的知识管理兼博客主题。",
+  "name": "mss-blog",
+  "version": "1.0.0",
+  "description": "马松松的博客",
   "author": {
-    "name": "gaoyi(Evan) Xu"
-  },
-  "homepage": "https://github.com/xugaoyi/vuepress-theme-vdoing#readme",
-  "bugs": {
-    "url": "https://github.com/xugaoyi/vuepress-theme-vdoing/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xugaoyi/vuepress-theme-vdoing.git"
+    "name": "kelocola"
   },
   "dependencies": {
     "@better-scroll/core": "^2.0.0-beta.6",
@@ -30,18 +22,6 @@
     "vuepress-plugin-container": "^2.0.2",
     "vuepress-plugin-smooth-scroll": "^0.0.3"
   },
-  "keywords": [
-    "documentation",
-    "vue",
-    "vuepress",
-    "generator",
-    "theme",
-    "blog"
-  ],
   "license": "MIT",
-  "main": "index.js",
-  "maintainers": [{
-    "name": "Evan xu",
-    "email": "894072666@qq.com"
-  }]
+  "main": "index.js"
 }

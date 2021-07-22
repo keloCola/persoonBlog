@@ -1,12 +1,13 @@
 <template>
   <div class="theme-vdoing-content">
-    <div class="column-wrapper">
-      <img :src="$withBase(pageData.imgUrl)" />
-      <dl class="column-info">
-        <dt class="title">{{ pageData.title }}</dt>
-        <dd class="description" v-html="pageData.description"></dd>
-      </dl>
-    </div>
+    <!--    <div class="column-wrapper">-->
+    <!--      <img :src="$withBase(pageData.imgUrl)" />-->
+    <!--      <dl class="column-info">-->
+    <!--        <dt class="title">{{ pageData.title }}</dt>-->
+    <!--        <dd class="description" v-html="pageData.description"></dd>-->
+    <!--      </dl>-->
+    <!--    </div>-->
+    <CatalogueCardBox :pageData="pageData" />
     <div class="catalogue-wrapper" v-if="isStructuring">
       <div class="catalogue-title">目录</div>
       <div class="catalogue-content">
@@ -14,8 +15,8 @@
           <dl v-if="type(item) === 'array'" :key="index" class="inline">
             <dt>
               <router-link :to="item[2]">{{
-                `${index + 1}. ${item[1]}`
-              }}</router-link>
+                  `${index + 1}. ${item[1]}`
+                }}</router-link>
             </dt>
           </dl>
           <dl v-else-if="type(item) === 'object'" :key="index">
@@ -29,23 +30,23 @@
               <template v-for="(c, i) in item.children">
                 <template v-if="type(c) === 'array'">
                   <router-link :to="c[2]" :key="i">{{
-                    `${index + 1}-${i + 1}. ${c[1]}`
-                  }}</router-link>
+                      `${index + 1}-${i + 1}. ${c[1]}`
+                    }}</router-link>
                 </template>
                 <!-- 三级目录 -->
                 <div
-                  v-else-if="type(c) === 'object'"
-                  :key="i"
-                  class="sub-cat-wrap"
+                    v-else-if="type(c) === 'object'"
+                    :key="i"
+                    class="sub-cat-wrap"
                 >
                   <div :id="(anchorText = c.title)" class="sub-title">
                     <a :href="`#${anchorText}`" class="header-anchor">#</a>
                     {{ `${index + 1}-${i + 1}. ${c.title}` }}
                   </div>
                   <router-link
-                    v-for="(cc, ii) in c.children"
-                    :to="cc[2]"
-                    :key="`${index + 1}-${i + 1}-${ii + 1}`"
+                      v-for="(cc, ii) in c.children"
+                      :to="cc[2]"
+                      :key="`${index + 1}-${i + 1}-${ii + 1}`"
                   >
                     {{ `${index + 1}-${i + 1}-${ii + 1}. ${cc[1]}` }}
                   </router-link>
@@ -60,7 +61,12 @@
 </template>
 
 <script>
+import CatalogueCardBox from "@theme/components/CatalogueCardBox";
+
 export default {
+  components: {
+    CatalogueCardBox
+  },
   data () {
     return {
       pageData: null,

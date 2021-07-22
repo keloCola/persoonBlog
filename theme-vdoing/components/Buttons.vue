@@ -33,10 +33,36 @@
             v-for="item in modeList"
             :key="item.KEY"
             class="iconfont"
-            :class="[item.icon, { active: item.KEY === currentMode }]"
+            :class="[item.icon, {active: item.KEY === currentMode}]"
             @click="toggleMode(item.KEY)"
+          >{{item.name}}</li>
+        </ul>
+      </transition>
+    </div>
+    <div
+        title="选择主题色"
+        class="button blur theme-mode-but iconfont icon-qiehuan"
+        @mouseenter="showThemeColorBox = true"
+        @mouseleave="showThemeColorBox = false"
+        @click="showThemeColorBox = true"
+    >
+      <transition name="mode">
+        <ul
+            class="select-box"
+            ref="modeBox"
+            v-show="showThemeColorBox"
+            @click.stop
+            @touchstart.stop
+        >
+          <li
+              v-for="item in themeColorList"
+              :key="item.KEY"
+              class="iconfont"
+              :class="[{active: item.KEY === currentThemeColor}]"
+              @click="toggleThemeColor(item.KEY)"
           >
-            {{ item.name }}
+            <sub :style="{ backgroundColor: item.color }" class="theme-select-block"></sub>
+            <span>{{item.name}}</span>
           </li>
         </ul>
       </transition>
@@ -58,6 +84,8 @@ export default {
       commentTop: null,
       currentMode: null,
       showModeBox: false,
+      currentThemeColor: null,
+      showThemeColorBox: false,
       modeList: [
         {
           name: '跟随系统',
@@ -78,6 +106,33 @@ export default {
           name: '阅读模式',
           icon: 'icon-yuedu',
           KEY: 'read'
+        }
+      ],
+      themeColorList: [
+        {
+          name: '生命绿',
+          KEY: 'green',
+          color: '#3eaf7c'
+        },
+        {
+          name: '收获黄',
+          KEY: 'yellow',
+          color: '#D59C12'
+        },
+        {
+          name: '天空蓝',
+          KEY: 'blue',
+          color: '#3498DB'
+        },
+        {
+          name: '激情红',
+          KEY: 'red',
+          color: '#E74C3C'
+        },
+        {
+          name: '高贵紫',
+          KEY: 'purple',
+          color: '#8e44ad'
         }
       ],
       _scrollTimer: null,
@@ -135,6 +190,10 @@ export default {
     }
   },
   methods: {
+    toggleThemeColor (key) {
+      this.currentThemeColor = key
+      this.$emit('toggle-theme-color', key)
+    },
     toggleMode (key) {
       this.currentMode = key
       this.$emit('toggle-theme-mode', key)
@@ -222,14 +281,14 @@ export default {
     transition all 0.5s
     background var(--blurBg)
     &.hover
-      background $accentColor
-      box-shadow 0 0 15px $accentColor
+      background var(--accentColor)
+      box-shadow 0 0 15px var(--accentColor)
       &:before
         color #fff
     @media (any-hover hover)
       &:hover
-        background $accentColor
-        box-shadow 0 0 15px $accentColor
+        background var(--accentColor)
+        box-shadow 0 0 15px var(--accentColor)
         &:before
           color #fff
     .select-box
@@ -243,15 +302,25 @@ export default {
       width 120px
       border-radius 6px
       box-shadow 0 0 15px rgba(255, 255, 255, 0.2)
+      .icon-zidong:before, .icon-rijianmoshi:before,
+      .icon-yejianmoshi:before, .icon-yuedu:before
+        padding-right 8px
       li
         list-style none
         line-height 2rem
         font-size 0.95rem
         &:hover
-          color $accentColor
+          color var(--accentColor)
         &.active
           background-color rgba(150, 150, 150, 0.2)
-          color $accentColor
+          color var(--accentColor)
+      .theme-select-block
+        vertical-align: middle;
+        display:inline-block;
+        width: 15px;
+        height: 15px;
+        margin-right: 2px;
+        border-radius: 2px;
 .mode-enter-active, .mode-leave-active
   transition all 0.3s
 .mode-enter, .mode-leave-to

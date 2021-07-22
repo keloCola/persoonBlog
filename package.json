@@ -1,11 +1,14 @@
 {
-  "name": "theme-vdoing-blog",
+  "name": "mss-blog",
   "version": "1.0.0",
+  "homepage": "https://kelocola.github.io/",
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs",
+    "deploy": "bash deploy.sh",
+    "baiduPush": "node utils/baiduPush.js https://kelocola.top && bash baiduPush.sh",
     "editFm": "node utils/editFrontmatter.js",
-    "publish": "cd ./theme-vdoing && npm publish && cd ../ && npm run updateTheme",
+    "publish": "cd theme-vdoing && npm publish && cd ../ && npm run updateTheme",
     "updateTheme": "npm uninstall vuepress-theme-vdoing && rm -rf node_modules && npm i && npm i vuepress-theme-vdoing -D"
   },
   "license": "MIT",
@@ -20,10 +23,11 @@
     "vuepress-plugin-one-click-copy": "^1.0.2",
     "vuepress-plugin-thirdparty-search": "^1.0.2",
     "vuepress-plugin-zooming": "^1.1.7",
-    "vuepress-theme-vdoing": "^1.8.3",
+    "vuepress-theme-vdoing": "^1.8.1",
     "yamljs": "^0.3.0"
   },
   "dependencies": {
+    "valine": "^1.4.14",
     "vuepress-plugin-comment": "^0.7.3"
   }
 }

@@ -1,11 +1,15 @@
 // 插件配置
 module.exports = [
   // 本地插件
-  // [require('./plugins/love-me'), { // 鼠标点击爱心特效
-  //   color: '#11a8cd', // 爱心颜色，默认随机色
+  // [require('../plugins/cat')], // 小猫插件
+
+  [require('../plugins/read')], // 阅读时间插件
+
+  // [require('../plugins/love-me'), { // 鼠标点击爱心特效
+  //   color: '#fb7299', // 爱心颜色，默认随机色
   //   excludeClassName: 'theme-vdoing-content' // 要排除元素的class, 默认空''
   // }],
-//  [require('../plugins/read')], // 阅读时间插件
+
   'vuepress-plugin-baidu-autopush', // 百度自动推送
 
   // 可以添加第三方搜索链接的搜索框（原官方搜索框的参数仍可用）
@@ -33,7 +37,7 @@ module.exports = [
         },
         {
           title: '通过百度搜索本站的',
-          frontUrl: 'https://www.baidu.com/s?wd=site%3AkeloCola.com%20',
+          frontUrl: 'https://www.baidu.com/s?wd=site%3AmkeloCola.top%20',
         },
       ],
     },
@@ -44,7 +48,7 @@ module.exports = [
     {
       // 代码块复制按钮
       copySelector: ['div[class*="language-"] pre', 'div[class*="aside-code"] aside'], // String or Array
-      copyMessage: '复制成功', // default is 'Copy successfully and then paste it for use.'
+      copyMessage: '宁复制了代码，记得标明出处哦！', // default is 'Copy successfully and then paste it for use.'
       duration: 1000, // prompt message display time.
       showInMobile: false, // whether to display on the mobile side, default: false.
     },
@@ -75,7 +79,7 @@ module.exports = [
   [
     'vuepress-plugin-baidu-tongji', // 百度统计
     {
-      hm: '503f098e7e5b3a5b5d8c5fc2938af002',
+      // hm: 'bc8fd87182d5c74b4dbf88b84e60f9fe',
     },
   ],
   [
@@ -94,7 +98,7 @@ module.exports = [
         title: '「评论」<%- frontmatter.title %>', // GitHub issue 的标题
         labels: ['Gitalk', 'Comment'], // GitHub issue 的标签
         body:
-          '页面：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>', // GitHub issue 的内容
+            '页面：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>', // GitHub issue 的内容
       },
     },
   ],
@@ -106,5 +110,5 @@ module.exports = [
         return dayjs(timestamp).format('YYYY/MM/DD, HH:mm:ss')
       },
     },
-  ],
+  ]
 ]

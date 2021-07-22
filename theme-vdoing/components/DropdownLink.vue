@@ -1,20 +1,34 @@
 <template>
-  <div class="dropdown-wrapper" :class="{ open }">
+  <div
+    class="dropdown-wrapper"
+    :class="{ open }"
+  >
     <button
       class="dropdown-title"
       type="button"
       :aria-label="dropdownAriaLabel"
       @click="toggle"
     >
-      <router-link v-if="item.link" :to="item.link" class="link-title">{{
-        item.text
-      }}</router-link>
-      <span class="title" v-show="!item.link">{{ item.text }}</span>
-      <span class="arrow" :class="open ? 'down' : 'right'"></span>
+      <router-link
+        v-if="item.link"
+        :to="item.link"
+        class="link-title"
+      >{{ item.text }}</router-link>
+      <span
+        class="title"
+        v-show="!item.link"
+      >{{ item.text }}</span>
+      <span
+        class="arrow"
+        :class="open ? 'down' : 'right'"
+      ></span>
     </button>
 
     <DropdownTransition>
-      <ul class="nav-dropdown" v-show="open">
+      <ul
+        class="nav-dropdown"
+        v-show="open"
+      >
         <li
           class="dropdown-item"
           :key="subItem.link || index"
@@ -22,7 +36,10 @@
         >
           <h4 v-if="subItem.type === 'links'">{{ subItem.text }}</h4>
 
-          <ul class="dropdown-subitem-wrapper" v-if="subItem.type === 'links'">
+          <ul
+            class="dropdown-subitem-wrapper"
+            v-if="subItem.type === 'links'"
+          >
             <li
               class="dropdown-subitem"
               :key="childSubItem.link"
@@ -31,8 +48,8 @@
               <NavLink
                 @focusout="
                   isLastItemOfArray(childSubItem, subItem.items) &&
-                    isLastItemOfArray(subItem, item.items) &&
-                    toggle()
+                  isLastItemOfArray(subItem, item.items) &&
+                  toggle()
                 "
                 :item="childSubItem"
               />
@@ -123,8 +140,10 @@ export default {
       vertical-align middle
       margin-top -1px
       margin-left 0.4rem
+
   .nav-dropdown
-    .dropdown-item
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.15)
+  .dropdown-item
       color inherit
       line-height 1.7rem
       h4
@@ -145,14 +164,14 @@ export default {
         margin-bottom 0
         padding 0 1.5rem 0 1.25rem
         &:hover
-          color $accentColor
+          color var(--accentColor)
         &.router-link-active
-          color $accentColor
+          color var(--accentColor)
           &::after
             content ''
             width 0
             height 0
-            border-left 5px solid $accentColor
+            border-left 5px solid var(--accentColor)
             border-top 3px solid transparent
             border-bottom 3px solid transparent
             position absolute
@@ -170,13 +189,14 @@ export default {
       font-weight 600
       font-size inherit
       &:hover
-        color $accentColor
+        color var(--accentColor)
       .link-title
         display none
       .title
         display inline-block !important
     .nav-dropdown
       transition height 0.1s ease-out
+      box-shadow: 2px 2px 10px transparent
       overflow hidden
       .dropdown-item
         h4
@@ -203,6 +223,10 @@ export default {
       border-right 4px solid transparent
       border-top 6px solid $arrowBgColor
       border-bottom 0
+    &:hover
+      .arrow
+        transform: rotate(-180deg)
+        transition: all .3s
     .nav-dropdown
       display none
       // Avoid height shaked by clicking
@@ -215,14 +239,38 @@ export default {
       right 0
       background-color var(--mainBg)
       padding 0.6rem 0
-      border 1px solid var(--borderColor)
+      //border 1px solid var(--borderColor)
       border-bottom-color var(--borderColor)
       text-align left
       border-radius 0.25rem
       white-space nowrap
       margin 0
-  .nav-item .dropdown-title a
-    &:hover, &.router-link-active
+  .nav-item .dropdown-title .link-title
+    &.router-link-active
       margin-bottom -2px
-      border-bottom 2px solid lighten($accentColor, 8%)
+      border-bottom 2px solid var(--accent-color-l10)
+      color var(--accentColor)
+    &:after
+      content: "";
+      width: 0;
+      height: 2px;
+      background: var(--accent-color-l10);
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transition: all .4s;
+    &:hover:after{
+      left: 0%;
+      width: 100%;
+    }
+    &:active{
+      left: 0%;
+      width: 100%;
+    }
+  .nav-item .dropdown-title a
+    position: relative;
+    &:hover
+      margin-bottom -2px
+      // border-bottom 2px solid lighten($accentColor, 8%)
+      //border-bottom 2px solid var(--accent-color-l10)
 </style>

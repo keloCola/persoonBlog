@@ -33,6 +33,7 @@ $mobileSidebarWidth = $sidebarWidth * 0.9
     &.sidebar-open
       .sidebar
         transform translateX(0)
+        box-shadow: 2px 0 8px rgba(0,0,0,0.15)
       .sidebar-mask // 蒙版在小屏中才能显示
         display block
     &.no-navbar
@@ -63,7 +64,7 @@ $mobileSidebarWidth = $sidebarWidth * 0.9
         padding-right .8rem
     &.have-rightmenu
       .page
-        padding-right ($rightMenuWidth + 20rem)
+        padding-right ($rightMenuWidth + .8rem)
     &.no-sidebar
       .page
         padding-left 0!important
