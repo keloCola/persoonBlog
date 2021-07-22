@@ -3,15 +3,15 @@
   "version": "1.8.3",
   "description": "Vdoing theme for VuePress. 一个基于VuePress的知识管理兼博客主题。",
   "author": {
-    "name": "keloCola"
+    "name": "gaoyi(Evan) Xu"
   },
-  "homepage": "https://github.com/keloCola/persoonBlog#readme",
+  "homepage": "https://github.com/xugaoyi/vuepress-theme-vdoing#readme",
   "bugs": {
-    "url": "https://github.com/keloCola/persoonBlog/issues"
+    "url": "https://github.com/xugaoyi/vuepress-theme-vdoing/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/keloCola/persoonBlog.git"
+    "url": "git+https://github.com/xugaoyi/vuepress-theme-vdoing.git"
   },
   "dependencies": {
     "@better-scroll/core": "^2.0.0-beta.6",
@@ -41,7 +41,7 @@
   "license": "MIT",
   "main": "index.js",
   "maintainers": [{
-    "name": "kelo",
-    "email": "XXX@qq.com"
+    "name": "Evan xu",
+    "email": "894072666@qq.com"
   }]
 }

@@ -2,69 +2,41 @@
   <div class="buttons">
     <transition name="fade">
       <div
-          title="返回顶部"
-          class="button blur go-to-top iconfont icon-fanhuidingbu"
-          v-show="showToTop"
-          @click="scrollToTop"
+        title="返回顶部"
+        class="button blur go-to-top iconfont icon-fanhuidingbu"
+        v-show="showToTop"
+        @click="scrollToTop"
       />
     </transition>
     <div
-        title="去评论"
-        class="button blur go-to-comment iconfont icon-pinglun"
-        v-show="showCommentBut"
-        @click="scrollToComment"
+      title="去评论"
+      class="button blur go-to-comment iconfont icon-pinglun"
+      v-show="showCommentBut"
+      @click="scrollToComment"
     />
     <div
-        title="主题模式"
-        class="button blur theme-mode-but iconfont icon-zhuti"
-        @mouseenter="showModeBox = true"
-        @mouseleave="showModeBox = false"
-        @click="showModeBox = true"
+      title="主题模式"
+      class="button blur theme-mode-but iconfont icon-zhuti"
+      @mouseenter="showModeBox = true"
+      @mouseleave="showModeBox = false"
+      @click="showModeBox = true"
     >
       <transition name="mode">
         <ul
-            class="select-box"
-            ref="modeBox"
-            v-show="showModeBox"
-            @click.stop
-            @touchstart.stop
+          class="select-box"
+          ref="modeBox"
+          v-show="showModeBox"
+          @click.stop
+          @touchstart.stop
         >
           <li
-              v-for="item in modeList"
-              :key="item.KEY"
-              class="iconfont"
-              :class="[item.icon, { active: item.KEY === currentMode }]"
-              @click="toggleMode(item.KEY)"
+            v-for="item in modeList"
+            :key="item.KEY"
+            class="iconfont"
+            :class="[item.icon, { active: item.KEY === currentMode }]"
+            @click="toggleMode(item.KEY)"
           >
             {{ item.name }}
-          </li>
-        </ul>
-      </transition>
-    </div>
-    <div
-        title="选择主题色"
-        class="button blur theme-mode-but iconfont icon-mao"
-        @mouseenter="showThemeColorBox = true"
-        @mouseleave="showThemeColorBox = false"
-        @click="showThemeColorBox = true"
-    >
-      <transition name="mode">
-        <ul
-            class="select-box"
-            ref="modeBox"
-            v-show="showThemeColorBox"
-            @click.stop
-            @touchstart.stop
-        >
-          <li
-              v-for="item in themeColorList"
-              :key="item.KEY"
-              class="iconfont"
-              :class="[{active: item.KEY === currentThemeColor}]"
-              @click="toggleThemeColor(item.KEY)"
-          >
-            <sub :style="{ backgroundColor: item.color }" class="theme-select-block"></sub>
-            <span>{{ item.name }}</span>
           </li>
         </ul>
       </transition>
@@ -78,7 +50,7 @@ import storage from 'good-storage' // 本地存储
 const MOBILE_DESKTOP_BREAKPOINT = 719 // refer to config.styl
 
 export default {
-  data() {
+  data () {
     return {
       threshold: 100,
       scrollTop: null,
@@ -86,8 +58,6 @@ export default {
       commentTop: null,
       currentMode: null,
       showModeBox: false,
-      currentThemeColor: null,
-      showThemeColorBox: false,
       modeList: [
         {
           name: '跟随系统',
@@ -110,33 +80,6 @@ export default {
           KEY: 'read'
         }
       ],
-      themeColorList: [
-        {
-          name: '生命绿',
-          KEY: 'green',
-          color: '#3eaf7c'
-        },
-        // {
-        //   name: '收获黄',
-        //   KEY: 'yellow',
-        //   color: '#D59C12'
-        // },
-        {
-          name: '天空蓝',
-          KEY: 'blue',
-          color: '#3498DB'
-        },
-        {
-          name: '合欢红',
-          KEY: 'red',
-          color: '#f0a1a8'
-        },
-        // {
-        //   name: '基佬紫',
-        //   KEY: 'purple',
-        //   color: '#8e44ad'
-        // }
-      ],
       _scrollTimer: null,
       _textareaEl: null,
       _recordScrollTop: null,
@@ -145,7 +88,7 @@ export default {
       COMMENT_SELECTOR_3: '.vssue' // 评论区元素的选择器3
     }
   },
-  mounted() {
+  mounted () {
     this.currentMode = storage.get('mode') || 'auto'
 
     this.scrollTop = this.getScrollTop()
@@ -187,31 +130,27 @@ export default {
 
   },
   computed: {
-    showToTop() {
+    showToTop () {
       return this.scrollTop > this.threshold
     }
   },
   methods: {
-    toggleThemeColor(key) {
-      this.currentThemeColor = key
-      this.$emit('toggle-theme-color', key)
-    },
-    toggleMode(key) {
+    toggleMode (key) {
       this.currentMode = key
       this.$emit('toggle-theme-mode', key)
     },
-    getScrollTop() {
+    getScrollTop () {
       return window.pageYOffset
-          || document.documentElement.scrollTop
-          || document.body.scrollTop || 0
+        || document.documentElement.scrollTop
+        || document.body.scrollTop || 0
     },
 
-    scrollToTop() {
-      window.scrollTo({top: 0, behavior: 'smooth'})
+    scrollToTop () {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
       this.scrollTop = 0
     },
 
-    getCommentTop() {
+    getCommentTop () {
       setTimeout(() => {
         let commentEl = document.querySelector(this.COMMENT_SELECTOR_1) || document.querySelector(this.COMMENT_SELECTOR_2) || document.querySelector(this.COMMENT_SELECTOR_3)
         if (commentEl) {
@@ -222,8 +161,8 @@ export default {
     },
 
 
-    scrollToComment() {
-      window.scrollTo({top: this.commentTop, behavior: 'smooth'})
+    scrollToComment () {
+      window.scrollTo({ top: this.commentTop, behavior: 'smooth' })
       this._textareaEl = document.querySelector(this.COMMENT_SELECTOR_1 + ' textarea') || document.querySelector(this.COMMENT_SELECTOR_2 + ' input') || document.querySelector(this.COMMENT_SELECTOR_3 + ' textarea')
       if (this._textareaEl && this.getScrollTop() !== this._recordScrollTop) {
         document.addEventListener("scroll", this._handleListener)
@@ -232,7 +171,7 @@ export default {
       }
     },
 
-    _handleListener() {
+    _handleListener () {
       clearTimeout(this._scrollTimer)
       this._scrollTimer = setTimeout(() => {
         document.removeEventListener('scroll', this._handleListener)
@@ -241,7 +180,7 @@ export default {
       }, 30)
     },
 
-    _handleFocus() {
+    _handleFocus () {
       this._textareaEl.focus()
       this._textareaEl.classList.add('yellowBorder')
       setTimeout(() => {
@@ -250,13 +189,14 @@ export default {
     }
   },
   watch: {
-    '$route.path'() {
+    '$route.path' () {
       this.showCommentBut = false
       this.getCommentTop()
     }
   }
 }
 </script>
+
 <style lang='stylus'>
 .yellowBorder
   // border: #FFE089 1px solid!important
@@ -282,14 +222,14 @@ export default {
     transition all 0.5s
     background var(--blurBg)
     &.hover
-      background var(--accentColor)
-      box-shadow 0 0 15px var(--accentColor)
+      background $accentColor
+      box-shadow 0 0 15px $accentColor
       &:before
         color #fff
     @media (any-hover hover)
       &:hover
-        background var(--accentColor)
-        box-shadow 0 0 15px var(--accentColor)
+        background $accentColor
+        box-shadow 0 0 15px $accentColor
         &:before
           color #fff
     .select-box
@@ -303,25 +243,15 @@ export default {
       width 120px
       border-radius 6px
       box-shadow 0 0 15px rgba(255, 255, 255, 0.2)
-      .icon-zidong:before, .icon-rijianmoshi:before,
-      .icon-yejianmoshi:before, .icon-yuedu:before
-        padding-right 8px
       li
         list-style none
         line-height 2rem
         font-size 0.95rem
         &:hover
-          color var(--accentColor)
+          color $accentColor
         &.active
           background-color rgba(150, 150, 150, 0.2)
-          color var(--accentColor)
-      .theme-select-block
-        vertical-align: middle;
-        display:inline-block;
-        width: 15px;
-        height: 15px;
-        margin-right: 2px;
-        border-radius: 2px;
+          color $accentColor
 .mode-enter-active, .mode-leave-active
   transition all 0.3s
 .mode-enter, .mode-leave-to
@@ -332,5 +262,3 @@ export default {
 .fade-enter, .fade-leave-to
   opacity 0
 </style>
-
-

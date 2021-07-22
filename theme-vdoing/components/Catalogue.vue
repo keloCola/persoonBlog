@@ -1,13 +1,12 @@
 <template>
   <div class="theme-vdoing-content">
-<!--    <div class="column-wrapper">-->
-<!--      <img :src="$withBase(pageData.imgUrl)" />-->
-<!--      <dl class="column-info">-->
-<!--        <dt class="title">{{ pageData.title }}</dt>-->
-<!--        <dd class="description" v-html="pageData.description"></dd>-->
-<!--      </dl>-->
-<!--    </div>-->
-    <CatalogueCardBox :pageData="pageData" />
+    <div class="column-wrapper">
+      <img :src="$withBase(pageData.imgUrl)" />
+      <dl class="column-info">
+        <dt class="title">{{ pageData.title }}</dt>
+        <dd class="description" v-html="pageData.description"></dd>
+      </dl>
+    </div>
     <div class="catalogue-wrapper" v-if="isStructuring">
       <div class="catalogue-title">目录</div>
       <div class="catalogue-content">
@@ -61,12 +60,7 @@
 </template>
 
 <script>
-import CatalogueCardBox from "@theme/components/CatalogueCardBox";
-
 export default {
-  components: {
-    CatalogueCardBox
-  },
   data () {
     return {
       pageData: null,

@@ -372,17 +372,15 @@ export default {
         .action-button
           display inline-block
           font-size 1.2rem
-          background-color var(--accentColor)
+          background-color $accentColor
           padding 0.8rem 1.6rem
           border-radius 4px
           transition background-color 0.1s ease
           box-sizing border-box
-          // border-bottom 1px solid darken($accentColor, 10%)
-          border-bottom 1px solid var(--accent-color-l10)
+          border-bottom 1px solid darken($accentColor, 10%)
           color #fff
           &:hover
-            // background-color lighten($accentColor, 10%)
-            background-color var(--accent-color-l10)
+            background-color lighten($accentColor, 10%)
       // pc端features
       .features
         padding 2rem 0
@@ -417,7 +415,7 @@ export default {
         .feature-img
           animation-play-state running
         h2, p
-          color var(--accentColor)
+          color $accentColor
     // 移动端滑动图标
     .slide-banner
       margin-top 2rem
@@ -466,7 +464,7 @@ export default {
   .banner.hide-banner
     display none
     & + .main-wrapper
-      margin-top ($navbarHeight + 0.9rem)
+      margin-top: ($navbarHeight + 0.9rem)
   .main-wrapper
     margin-top 2rem
     .main-left
@@ -537,4 +535,3 @@ export default {
         h2
           font-size 1.25rem
 </style>
-

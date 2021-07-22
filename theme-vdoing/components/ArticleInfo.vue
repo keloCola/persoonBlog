@@ -6,50 +6,58 @@
         v-if="articleInfo.classify1 && articleInfo.classify1 !== '_posts'"
       >
         <li>
-          <router-link
-            to="/"
-            class="iconfont icon-home"
-            title="首页"
-          />
+          <router-link to="/" class="iconfont icon-home" title="首页" />
         </li>
         <li>
           <router-link
             v-if="articleInfo.cataloguePermalink"
             :to="articleInfo.cataloguePermalink"
-            :title="articleInfo.classify1+'-目录页'"
-          >{{articleInfo.classify1}}</router-link>
+            :title="articleInfo.classify1 + '-目录页'"
+            >{{ articleInfo.classify1 }}</router-link
+          >
           <router-link
             v-else-if="$themeConfig.category !== false"
-            :to="`/categories/?category=${encodeURIComponent(articleInfo.classify1)}`"
+            :to="`/categories/?category=${encodeURIComponent(
+              articleInfo.classify1
+            )}`"
             title="分类"
-          >{{articleInfo.classify1}}</router-link>
+            >{{ articleInfo.classify1 }}</router-link
+          >
           <span v-else>{{ articleInfo.classify1 }}</span>
         </li>
         <li v-if="articleInfo.classify2">
           <router-link
             v-if="articleInfo.cataloguePermalink"
             :to="articleInfo.cataloguePermalink + '/#' + articleInfo.classify2"
-            :title="articleInfo.classify1+'#'+articleInfo.classify2"
-          >{{articleInfo.classify2}}</router-link>
+            :title="articleInfo.classify1 + '#' + articleInfo.classify2"
+            >{{ articleInfo.classify2 }}</router-link
+          >
           <router-link
             v-else-if="$themeConfig.category !== false"
-            :to="`/categories/?category=${encodeURIComponent(articleInfo.classify2)}`"
+            :to="`/categories/?category=${encodeURIComponent(
+              articleInfo.classify2
+            )}`"
             title="分类"
-          >{{articleInfo.classify2}}</router-link>
-          <span v-else>{{articleInfo.classify2}}</span>
+            >{{ articleInfo.classify2 }}</router-link
+          >
+          <span v-else>{{ articleInfo.classify2 }}</span>
         </li>
         <li v-if="articleInfo.classify3">
           <router-link
             v-if="articleInfo.cataloguePermalink"
             :to="articleInfo.cataloguePermalink + '/#' + articleInfo.classify3"
-            :title="articleInfo.classify1+'#'+articleInfo.classify3"
-          >{{articleInfo.classify3}}</router-link>
+            :title="articleInfo.classify1 + '#' + articleInfo.classify3"
+            >{{ articleInfo.classify3 }}</router-link
+          >
           <router-link
             v-else-if="$themeConfig.category !== false"
-            :to="`/categories/?category=${encodeURIComponent(articleInfo.classify3)}`"
+            :to="`/categories/?category=${encodeURIComponent(
+              articleInfo.classify3
+            )}`"
             title="分类"
-          >{{articleInfo.classify3}}</router-link>
-          <span v-else>{{articleInfo.classify3}}</span>
+            >{{ articleInfo.classify3 }}</router-link
+          >
+          <span v-else>{{ articleInfo.classify3 }}</span>
         </li>
       </ul>
       <div class="info">
@@ -60,46 +68,42 @@
         >
           <a
             :href="articleInfo.author.href || articleInfo.author.link"
-            v-if="articleInfo.author.href || articleInfo.author.link && typeof(articleInfo.author.link) === 'string'"
+            v-if="
+              articleInfo.author.href ||
+              (articleInfo.author.link &&
+                typeof articleInfo.author.link === 'string')
+            "
             target="_blank"
             class="beLink"
             title="作者"
-          >{{articleInfo.author.name}}</a>
-          <a
-            v-else
-            href="javascript:;"
-          >{{articleInfo.author.name || articleInfo.author}}</a>
+            >{{ articleInfo.author.name }}</a
+          >
+          <a v-else href="javascript:;">{{
+            articleInfo.author.name || articleInfo.author
+          }}</a>
         </div>
         <div
           class="date iconfont icon-riqi"
           title="创建时间"
           v-if="articleInfo.date"
         >
-          <a href="javascript:;">{{articleInfo.date}}</a>
+          <a href="javascript:;">{{ articleInfo.date }}</a>
         </div>
         <div
           class="date iconfont icon-wenjian"
           title="分类"
-          v-if="$themeConfig.category !== false && !(articleInfo.classify1 && articleInfo.classify1 !== '_posts') && articleInfo.categories"
+          v-if="
+            $themeConfig.category !== false &&
+            !(articleInfo.classify1 && articleInfo.classify1 !== '_posts') &&
+            articleInfo.categories
+          "
         >
           <router-link
             :to="`/categories/?category=${encodeURIComponent(item)}`"
             v-for="(item, index) in articleInfo.categories"
             :key="index"
-          >{{item + ' '}}</router-link>
-        </div>
-        <div
-          v-if="$themeConfig.isShowReadTime && readingTimeMsg"
-          class="date iconfont icon-yuedu">
-          <span>{{ '时间 ' + readingTimeMsg}}</span>
-        </div>
-        <div
-          v-if="$themeConfig.isShowReadCount"
-          :id="$page.path"
-          class="leancloud_visitors date iconfont icon-eye"
-          :data-flag-title="$page.title">
-          <span class="post-meta-item-text">阅读量 </span>
-          <span class="leancloud-visitors-count">0</span>
+            >{{ item + ' ' }}</router-link
+          >
         </div>
       </div>
     </div>
@@ -110,50 +114,22 @@
 export default {
   data () {
     return {
-      articleInfo: {},
-      readingTimeMsg: '',
+      articleInfo: {}
     }
-  },
-  mounted() {
-    setTimeout(() => {
-      this.initValine();
-    }, 500);
   },
   created () {
     this.articleInfo = this.getPageInfo()
   },
   watch: {
-    $route (to, from) {
-      if (from.path !== to.path) {
-        this.articleInfo = this.getPageInfo()
-        this.$nextTick(() => {
-          this.initValine()
-        })
-      }
+    '$route.path' () {
+      this.articleInfo = this.getPageInfo()
     }
   },
   methods: {
-    initValine () {
-      import('valine').then(valineConstructor => {
-        const valine = new valineConstructor.default();
-        valine.init({
-          el: '#valine-vuepress-comment',
-          appId: 'FBPq14pAqbA2njMQCgq0Qtn9-MdYXbMMI',
-          appKey: 'AeKIQrwR7e1lljXJ4yAnv6yH',
-          path: this.$route.path,
-          visitor: true,
-        })
-      })
-    },
     getPageInfo () {
       const pageInfo = this.$page
-
-      const { minutes = '' } = pageInfo.readingTime
       const { relativePath } = pageInfo
       const { sidebar } = this.$themeConfig
-
-      // 阅读时间
-      this.readingTimeMsg = minutes <= 1 ? '1分钟' : `${minutes}分钟`
 
       // 分类采用解析文件夹地址名称的方式
       const relativePathArr = relativePath.split('/')
@@ -164,7 +140,6 @@ export default {
       const classify3 = relativePathArr.length > 3 ? relativePathArr[2].split('.')[1] : undefined// 文章三级分类名称
 
       const cataloguePermalink = sidebar && sidebar.catalogue ? sidebar.catalogue[classify1] : undefined// 目录页永久链接
-
       const author = this.$frontmatter.author || this.$themeConfig.author // 作者
       let date = (pageInfo.frontmatter.date || '').split(' ')[0] // 文章创建时间
 
@@ -187,6 +162,7 @@ export default {
 
 <style lang='stylus' scoped>
 @require '../styles/wrapper.styl'
+
 .articleInfo-wrap
   @extend $wrapper
   position relative
@@ -219,7 +195,7 @@ export default {
           &:before
             font-size 0.92rem
           &:hover
-            color var(--accentColor)
+            color $accentColor
         .icon-home
           text-decoration none
     .info
@@ -239,10 +215,8 @@ export default {
           color #888
           &:hover
             text-decoration none
-        span
-          font-weight 500
         a.beLink
           &:hover
-            color var(--accentColor)
+            color $accentColor
             text-decoration underline
 </style>

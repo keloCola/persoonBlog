@@ -117,10 +117,10 @@ export default {
   &.clickable
     &.active
       font-weight 600
-      color var(--accentColor)
-      border-left-color var(--accentColor)
+      color $accentColor
+      border-left-color $accentColor
     &:hover
-      color var(--accentColor)
+      color $accentColor
 .sidebar-group-items
   transition height 0.1s ease-out
   font-size 0.95em
