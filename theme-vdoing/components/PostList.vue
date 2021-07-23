@@ -10,12 +10,12 @@
       <div
         class="post card-box"
         :class="item.frontmatter.sticky && 'iconfont icon-zhiding'"
-        v-for="item in sortPosts"
+        v-for="(item,index) in sortPosts"
         :key="item.key"
       >
         <div class="title-wrapper">
           <h2>
-            <router-link :to="item.path">{{item.title}}</router-link>
+            <router-link :to="item.path">{{(currentPage-1)*5+index+1}}.{{item.title}}</router-link>
           </h2>
           <div class="article-info">
             <a
@@ -161,18 +161,14 @@ export default {
 <style lang='stylus'>
 .post-list
   margin-bottom 4rem
-  transition margin-right 0.3s ease-out
-  &:hover
-   margin-right 1.7rem
+  
   .post
     position relative
     padding 1rem 1.5rem
-    margin-bottom 1.2rem
+    margin-bottom 0.9rem
     transition all 0.3s
     border-radius 1.2rem
-    &:hover
-      transform scale(1.1)
-      z-index 19999
+
     &.post-leave-active
       display none
     &.post-enter
@@ -189,7 +185,7 @@ export default {
       a
         color var(--textColor)
         &:hover
-          color var(--accentColor)
+         color var(--accentColor)
       h2
         margin 0.5rem 0
         font-size 1.4rem

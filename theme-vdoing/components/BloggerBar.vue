@@ -46,7 +46,7 @@ export default {
 .blogger-wrapper
   position relative
   height auto
-  display inline-table
+  // display inline-table
   padding-top 0!important
   overflow hidden
   .avatar
@@ -54,7 +54,7 @@ export default {
     // height 235px
     overflow hidden
     .blogger-top
-      background url("https://cdn.jsdelivr.net/gh/kelocola/learn@master/images/BrightonSnow_ZH-CN0309526170_1920x1080.58fhvngy1ww0.jpg")
+      background url(" ")
       background-size:100%,100%;
       width 100%
       height 120px

@@ -9,10 +9,7 @@
     </span>
 
     <!-- 分页在5页及以下时 -->
-    <div
-      class="pagination-list"
-      v-if="pages <= 5"
-    >
+    <div class="pagination-list" v-if="pages <= 5">
       <span
         class="card-box"
         v-for="item in pages"
@@ -22,16 +19,9 @@
       >{{item}}</span>
     </div>
     <!-- 分页在5页以上 -->
-    <div
-      class="pagination-list"
-      v-else
-    >
+    <div class="pagination-list" v-else>
       <!-- 一号位 -->
-      <span
-        class="card-box"
-        :class="{active: currentPage === 1}"
-        @click="goIndex(1)"
-      >1</span>
+      <span class="card-box" :class="{active: currentPage === 1}" @click="goIndex(1)">1</span>
 
       <!-- 二号位 -->
       <span
@@ -75,8 +65,11 @@
         :class="{active: currentPage === pages}"
         @click="goIndex(pages)"
       >{{pages}}</span>
+      <span style="width: 4rem !important;">
+         共{{total}}条
+      </span>
     </div>
-
+   
     <span
       class="card-box next iconfont icon-jiantou-you"
       :class="{disabled: currentPage === pages}"
@@ -90,144 +83,204 @@
 <script>
 export default {
   props: {
-    total: { // 总长度
+    total: {
+      // 总长度
       type: Number,
-      default: 10
+      default: 10,
     },
-    perPage: { // 每页长
+    perPage: {
+      // 每页长
       type: Number,
-      default: 10
+      default: 10,
     },
-    currentPage: { // 当前页
+    currentPage: {
+      // 当前页
       type: Number,
-      default: 1
-    }
+      default: 1,
+    },
   },
   computed: {
-    pages () { // 总页数
+    pages() {
+      // 总页数
       return Math.ceil(this.total / this.perPage)
-    }
+    },
   },
   methods: {
-    threeNum () { // 三号位页码计算
+    threeNum() {
+      // 三号位页码计算
       let num = 3
       const currentPage = this.currentPage
       const pages = this.pages
       if (currentPage < 3) {
         num = 3
-      } else if (currentPage > (pages - 3)) {
+      } else if (currentPage > pages - 3) {
         num = pages - 2
       } else {
         num = currentPage
       }
       return num
     },
-    goPrex () {
+    goPrex() {
       let currentPage = this.currentPage
       if (currentPage > 1) {
         this.handleEmit(--currentPage)
       }
     },
-    goNext () {
+    goNext() {
       let currentPage = this.currentPage
       if (currentPage < this.pages) {
         this.handleEmit(++currentPage)
       }
     },
-    goIndex (i) {
+    goIndex(i) {
       if (i !== this.currentPage) {
         this.handleEmit(i)
       }
     },
-    handleEmit (i) {
+    handleEmit(i) {
       this.$emit('getCurrentPage', i)
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang='stylus'>
-.pagination
-  position relative
-  height 60px
-  text-align center
-  span
-    line-height 1rem
-    opacity 0.9
-    cursor pointer
-    &:hover
-      color var(--accentColor)
-    &.ellipsis
-      opacity 0.5
-      &::before
-        content '...'
-        font-size 1.2rem
-      @media (any-hover hover)
-        &.ell-two
-          &:hover
-            &::before
-              content '«'
-        &.ell-four
-          &:hover
-            &::before
-              content '»'
-  > span
-    position absolute
-    top 0
-    padding 1rem 1.2rem
-    font-size 0.95rem
-    &.disabled
-      color rgba(125, 125, 125, 0.5)
-    &.prev
-      left 0
-      border-top-right-radius 32px
-      border-bottom-right-radius 32px
-    &.next
-      right 0
-      border-top-left-radius 32px
-      border-bottom-left-radius 32px
-      &::before
-        float right
-        margin-left 0.3rem
-    p
-      display inline
-      line-height 0.95rem
-  .pagination-list
-    span
-      display inline-block
-      width 2.5rem
-      height 2.5rem
-      line-height 2.5rem
-      margin 0.3rem
-      &.active
-        background var(--accentColor)
-        color var(--mainBg)
-@media (max-width 800px)
-  .pagination
-    > span
-      padding 1rem 1.5rem
-      p
-        display none
+.pagination {
+  position: relative;
+  height: 60px;
+  text-align: center;
+
+  span {
+    line-height: 1rem;
+    opacity: 0.9;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--accentColor);
+    }
+
+    &.ellipsis {
+      opacity: 0.5;
+
+      &::before {
+        content: '...';
+        font-size: 1.2rem;
+      }
+
+      @media (any-hover: hover) {
+        &.ell-two {
+          &:hover {
+            &::before {
+              content: '«';
+            }
+          }
+        }
+
+        &.ell-four {
+          &:hover {
+            &::before {
+              content: '»';
+            }
+          }
+        }
+      }
+    }
+  }
+
+  > span {
+    position: absolute;
+    top: 0;
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+
+    &.disabled {
+      color: rgba(125, 125, 125, 0.5);
+    }
+
+    &.prev {
+      left: 0;
+      border-top-right-radius: 32px;
+      border-bottom-right-radius: 32px;
+    }
+
+    &.next {
+      right: 0;
+      border-top-left-radius: 32px;
+      border-bottom-left-radius: 32px;
+
+      &::before {
+        float: right;
+        margin-left: 0.3rem;
+      }
+    }
+
+    p {
+      display: inline;
+      line-height: 0.95rem;
+    }
+  }
+
+  .pagination-list {
+    span {
+      display: inline-block;
+      width: 2.5rem;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      margin: 0.3rem;
+
+      &.active {
+        background: var(--accentColor);
+        color: var(--mainBg);
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .pagination {
+    > span {
+      padding: 1rem 1.5rem;
+
+      p {
+        display: none;
+      }
+    }
+  }
+}
+
 // 719px
-@media (max-width $MQMobile)
-  .pagination
-    > span // 左右按钮
-      padding 0.9rem 1.5rem
-    .pagination-list
-      span
-        width 2.3rem
-        height 2.3rem
-        line-height 2.3rem
-        margin 0.25rem
-@media (max-width 390px)
-  .pagination
-    > span // 左右按钮
-      padding 0.8rem 1.3rem
-    .pagination-list
-      span
-        width 2rem
-        height 2rem
-        line-height 2rem
-        margin 0.1rem
-        margin-top 0.3rem
+@media (max-width: $MQMobile) {
+  .pagination {
+    > span { // 左右按钮
+      padding: 0.9rem 1.5rem;
+    }
+
+    .pagination-list {
+      span {
+        width: 2.3rem;
+        height: 2.3rem;
+        line-height: 2.3rem;
+        margin: 0.25rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 390px) {
+  .pagination {
+    > span { // 左右按钮
+      padding: 0.8rem 1.3rem;
+    }
+
+    .pagination-list {
+      span {
+        width: 2rem;
+        height: 2rem;
+        line-height: 2rem;
+        margin: 0.1rem;
+        margin-top: 0.3rem;
+      }
+    }
+  }
+}
 </style>

@@ -50,7 +50,7 @@ export default {
 
   watch: {
     $route () {
-      console.log('触发了这个函数！')
+      // console.log('触发了这个函数！')
       this.key = new Date().getTime()
     }
   },
