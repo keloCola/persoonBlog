@@ -157,8 +157,13 @@ export default {
   }
 }
 </script>
-
+<style scoped>
+h2::before {
+    content: "";
+}
+</style>
 <style lang='stylus'>
+
 .post-list
   margin-bottom 4rem
   

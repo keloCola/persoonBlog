@@ -205,17 +205,26 @@ p,pre,.custom-block
 
 h1
   font-size 1.8rem
+  text-align center
   {$contentClass}:not(.custom) > & // 页面内容的首个h1标签隐藏
     &:first-child
       display none
-
 h2
   font-size 1.5rem
-  padding-bottom .3rem
+  padding-bottom .5rem
   border-bottom 1px solid var(--borderColor)
-
+h2::before {
+    content: "H2";
+    color var(--accentColor)
+}
 h3
-  font-size 1.35rem
+  padding-bottom .3rem
+  font-size 1.3rem
+h3::before {
+    font-size 1.3rem
+    content: "H3";
+    color var(--accentColor)
+}
 
 a.header-anchor
   font-size 0.85em
