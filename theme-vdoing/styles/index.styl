@@ -162,9 +162,10 @@ kbd
 blockquote
   font-size 1rem
   opacity .75
-  border-left .2rem solid rgba(100,100,100,.3)
+  border-left .2rem solid var(--accentColor)
   margin 1rem 0
   padding .25rem 0 .25rem 1rem
+  background-color var(--backColor)
 
   & > p
     margin 0
@@ -216,6 +217,13 @@ h2
 h2::before {
     content: "H2";
     color var(--accentColor)
+    vertical-align: bottom;
+    margin-right: .5rem;
+    padding: 2px;
+    border-radius: 6px;
+    background-color:var(--gradientColor-l10);
+    background: var(--gradientColor-l10);
+
 }
 h3
   padding-bottom .3rem
@@ -224,6 +232,12 @@ h3::before {
     font-size 1.3rem
     content: "H3";
     color var(--accentColor)
+    vertical-align: bottom;
+    margin-right: .5rem;
+    padding: 4px;
+    border-radius: 5px;
+    background-color:var(--backColor);
+    background: var(--backColor);
 }
 
 a.header-anchor
