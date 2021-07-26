@@ -101,8 +101,8 @@ codeThemeLight()
   .token.url,
   .language-css .token.string,
   .style .token.string {
-    color: #9a6e3a;
-    background: hsla(0, 0%, 100%, .5);
+    // color: #9a6e3a;
+    // background: hsla(0, 0%, 100%, .5);
   }
 
   .token.atrule,
@@ -138,11 +138,11 @@ codeThemeLight()
   div[class*="language-"]
     .highlight-lines
       .highlighted
-        background-color rgba(200, 200, 200, 40%)
+        background-color var(--backColor)
     &.line-numbers-mode
       .highlight-lines .highlighted
         &:before
-          background-color rgba(200, 200, 200, 40%)
+          background-color var(--backColor)
 
 
 // 适合深色背景 // @import '~prismjs/themes/prism-tomorrow.css'
